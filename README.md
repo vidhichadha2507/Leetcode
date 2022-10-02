@@ -1,14 +1,10 @@
 # Leetcode
 Add your leetocde problems here with solution.
-It can help the beginners to start their leetcode journey.
-
-# Here-Contributions-Begins
 
 ># Hi,  If you are a beginner then this is for you...by this tutorial you are going to make your First PR for sure
 
 <hr>
-
-This project aims to simplify and guide the way beginners make their first contribution. If you are looking to make your first contribution, follow the steps below.
+If you are looking to make your first contribution, follow the steps below.
 
 <img align="right" width="300" src="https://firstcontributions.github.io/assets/Readme/fork.png" alt="fork this repository" />
 
