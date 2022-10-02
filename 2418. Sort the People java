@@ -1,0 +1,18 @@
+class Solution {
+    public String[] sortPeople(String[] names, int[] heights) {
+        Map<Integer,String>tm=new TreeMap<>();
+        int n=names.length;
+        for(int i=0;i<n;i++)
+        {
+            tm.put(heights[i],names[i]);
+        }
+        String a[]=new String[n];
+        int j=n-1;
+        for(int i:tm.keySet())
+        {
+            a[j]=tm.get(i);
+            j--;
+        }
+        return a;
+    }
+}
