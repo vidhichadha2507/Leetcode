@@ -1,24 +1,32 @@
 class Solution {
-    public boolean isPalindrome(String s) {
-        int left = 0;
-        int right = s.length()-1;
-        
-        while (left < right){
-            char c1 = s.charAt(left);
-            char c2 = s.charAt(right);
-            
-            //if c1 is not valid then move forward
-            if (!Character.isLetterOrDigit(c1)) left++;
-            // if c2 is not valid move backward
-            else if (!Character.isLetterOrDigit(c2)) right--;
-            // otherwise compare
-            else{
-                if (Character.toLowerCase(c1) != Character.toLowerCase(c2)) return false;    
-                left++;
-                right--;    
+    public boolean isPalindrome(String str) {
+        str = str.toLowerCase();
+        int i = 0, j = str.length() - 1;
+        while (i < str.length() && j >= 0 && i < j) {
+
+            while (!Character.isLetterOrDigit(str.charAt(i))) {
+                i++;
+                if (i >= str.length()) {
+                    break;
+                }
             }
+            while (!Character.isLetterOrDigit(str.charAt(j))) {
+                j--;
+                if (j < 0) {
+                    break;
+                }
+            }
+            if (j < 0 || i > j || i >= str.length()) {
+                break;
+            }
+            if (str.charAt(i) != str.charAt(j)) {
+                return false;
+            } else {
+                i++;
+                j--;
+            }
+
         }
-        
         return true;
     }
 }
