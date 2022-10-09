@@ -1,0 +1,14 @@
+class Solution {
+    public TreeNode sortedArrayToBST(int[] nums) {
+        return bst(nums,0,nums.length-1);
+    }
+    private TreeNode bst(int[] arr,int start,int end){
+        if(start>end)
+            return null;
+        int mid=(start+end)/2;
+        TreeNode ll=new TreeNode(arr[mid]);
+        ll.left=bst(arr,start,mid-1);
+        ll.right=bst(arr,mid+1,end);
+        return ll;
+    }
+}
