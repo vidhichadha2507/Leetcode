@@ -1,0 +1,96 @@
+class Solution {
+    public int numberOfGoodPaths(int[] vals, int[][] edges) {
+        int n=vals.length;
+        int ans=n;
+        List<List<Integer>> adj = new ArrayList<>();
+        TreeMap<Integer,List<Integer>>tm=new TreeMap<>();
+        UnionFind uf=new UnionFind(n);
+        
+        for(int i=0;i<n;i++)
+        {
+            adj.add(new ArrayList<>());
+            if(!tm.containsKey(vals[i]))
+            {
+                tm.put(vals[i],new ArrayList<>());
+            }
+            tm.get(vals[i]).add(i);
+        }
+        for (int[] edge : edges) 
+        {
+            adj.get(edge[0]).add(edge[1]);
+            adj.get(edge[1]).add(edge[0]);
+        }
+        for(Integer cur:tm.keySet())
+        {
+            List<Integer>ll=tm.get(cur);
+            for(Integer node:ll)
+            {
+                List<Integer>neigh=adj.get(node);
+                for(Integer nn:neigh)
+                {
+                    if(vals[node]>=vals[nn])
+                        uf.union(node,nn);
+                }
+            }
+            if(ll.size()>1)
+            {
+                Map<Integer,Integer>hm=new HashMap<>();
+                for(int i=0;i<ll.size();i++)
+                {
+                    int parent=uf.find(ll.get(i));
+                    hm.put(parent,hm.getOrDefault(parent,0)+1);
+                }
+                for(int x:hm.keySet())
+                {
+                    int y=hm.get(x);
+                    ans+=((y*(y-1))/2);
+                }
+            }
+        }
+        return ans;
+    }
+}
+public class UnionFind
+{
+    int parent[];
+    int rank[];
+    
+    public UnionFind(int n)
+    {
+        parent=new int[n];
+        rank=new int[n];
+        for (int i = 0; i < n; i++) 
+        {
+            parent[i] = i;
+            rank[i] = 1;
+        }
+    }
+    public int find(int i)
+    {
+        while(i!=parent[i])
+        {
+            parent[i]=parent[parent[i]];
+            i=parent[i];
+        }
+        return i;
+    }
+    public boolean checkSame(int x,int y)
+    {
+        return find(x)==find(y);
+    }
+    public void union(int x,int y)
+    {
+        if(checkSame(x,y))
+            return;
+        int x1=find(x);
+        int y1=find(y);
+        if(rank[x1]<rank[y1])
+            parent[x1]=y1;
+        else
+        {
+            parent[y1]=x1;
+            if(rank[x1]==rank[y1])
+                rank[x1]++;
+        }
+    }
+}
